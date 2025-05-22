@@ -1,6 +1,11 @@
-
 import pandas as pd
 import numpy as np
+
+def df_shape(df):
+    # Get the number of rows and columns
+    rows, columns = df.shape
+    print(f"The DataFrame has {rows} observations (rows) and {columns} columns.")
+
 
 def load_data(file_path):
     """
@@ -13,3 +18,68 @@ def load_data(file_path):
     except Exception as e:
         print(f"Error loading data: {e}")
         return None
+
+def save_data(df, file_path):
+    """
+    Save DataFrame to a CSV file.
+    """
+    try:
+        df.to_csv(file_path, index=False)
+        print(f"Data saved successfully to {file_path}")
+    except Exception as e:
+        print(f"Error saving data: {e}")
+
+
+def prepare_data(df):
+    """
+    Prepare the data by selecting essential columns, filtering by fiscal year,
+    and excluding financial and utility industries.
+    """
+    # --- Step 1: Define Essential Columns to Keep ---
+    essential_columns = [
+        # Identifiers & Date
+        'gvkey', 'datadate', 'fyear', 'conm', 'tic', 'cusip', 'cik',
+        # Industry Code
+        'sic',
+        # Data Quality/Screening Variables
+        'curncd', 'pddur',
+        # Variables for Dependent Variable (OCF_Scaled)
+        'oancf', 'at',
+        # Variables for OLS Predictors (Set A)
+        'ni', 'rect', 'invt', 'ap', 'dp',
+        # Variables for Additional ML Predictors (Set B)
+        'xsga', 'xrd', 'capx', 'act', 'lct', 'lt', 'sale', 'gp', 'cogs',
+        'ppent', 'mkvalt', 'ceq', 'ipodate'
+    ]
+
+    # Keep only essential columns
+    columns_to_keep = [col for col in essential_columns if col in df.columns]
+    df_selected_cols = df[columns_to_keep].copy()
+
+    print(f"Original number of observations: {len(df)}")
+    print(f"Number of columns after selection: {len(df_selected_cols.columns)}")
+
+    # --- Step 2: Filter by Fiscal Year ---
+    start_year = 2000
+    end_year = 2023
+    df_filtered_year = df_selected_cols[(df_selected_cols['fyear'] >= start_year) & (df_selected_cols['fyear'] <= end_year)].copy()
+    print(f"Observations after year filter ({start_year}-{end_year}): {len(df_filtered_year)}")
+
+    # --- Step 3: Filter by Industry (Exclude Financials and Utilities) ---
+    df_filtered_year['sic'] = pd.to_numeric(df_filtered_year['sic'], errors='coerce')
+
+    financial_sic_min = 6000
+    financial_sic_max = 6999
+    utility_sic_min = 4900
+    utility_sic_max = 4999
+
+    is_financial = (df_filtered_year['sic'] >= financial_sic_min) & (df_filtered_year['sic'] <= financial_sic_max)
+    is_utility = (df_filtered_year['sic'] >= utility_sic_min) & (df_filtered_year['sic'] <= utility_sic_max)
+
+    df_filtered_industry = df_filtered_year[~(is_financial | is_utility)].copy()
+    print(f"Observations after excluding financial and utility firms: {len(df_filtered_industry)}")
+
+    df_final_filters = df_filtered_industry.copy()
+
+    return df_final_filters
+
