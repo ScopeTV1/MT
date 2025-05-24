@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import src.lists as lists
 
 def df_shape(df):
     # Get the number of rows and columns
@@ -83,3 +84,31 @@ def prepare_data(df):
 
     return df_final_filters
 
+
+def missing_values(df, drop_set_b=False):
+    """
+    Remove rows with missing values in essential predictor variables.
+    
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        The input DataFrame to process
+    drop_set_b : bool, default=True
+        Whether to drop rows with missing values in Set B predictor components
+        
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with rows containing missing values removed
+    """
+    # Create a copy to avoid modifying the original dataframe
+    df_clean = df.copy()
+    
+    # Always drop rows with missing values in Set A predictors
+    df_clean = df_clean.dropna(subset=lists.raw_items_for_set_A_predictors_components)
+    
+    # Optionally drop rows with missing values in Set B predictors
+    if drop_set_b:
+        df_clean = df_clean.dropna(subset=lists.raw_items_for_set_B_truly_additional_components)
+    
+    return df_clean
