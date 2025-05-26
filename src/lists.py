@@ -27,3 +27,11 @@ raw_items_for_set_B_truly_additional_components = [
     'ppent', 'mkvalt', 'ceq'
 ]
 
+vars_to_lag = [ 
+    'at',      # Needed for at_{t-1} (for scaling OCF_Scaled_Lag_t and NI_Scaled_Lag_t)
+    'ni',      # Needed for ni_{t-1} (for NI_Scaled_Lag_t)
+    'rect',    # Needed for rect_{t-1} (for ΔRec_Scaled_t)
+    'invt',    # Needed for invt_{t-1} (for ΔInv_Scaled_t)
+    'ap',      # Needed for ap_{t-1} (for ΔAP_Scaled_t)
+    'sale'
+]

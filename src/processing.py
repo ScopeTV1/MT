@@ -112,3 +112,31 @@ def missing_values(df, drop_set_b=False):
         df_clean = df_clean.dropna(subset=lists.raw_items_for_set_B_truly_additional_components)
     
     return df_clean
+
+def create_lagged_variables(df, lag_years=1, vars_to_lag=None):
+    """
+    Create lagged variables for specified variables.
+    
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        The input DataFrame to process
+    lag_years : int, default=1
+        The number of years to lag the variables
+    vars_to_lag : list, default=None
+        List of variables to create lags for
+        
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with lagged variables added
+    """
+    df_screened = df.copy()
+    
+    if vars_to_lag is None:
+        print("No variables specified for lagging. Using default Set A predictors.")
+        
+    for var in vars_to_lag:
+        df_screened[f'{var}_lag1'] = df_screened.groupby('gvkey')[var].shift(1)
+    
+    return df_screened
