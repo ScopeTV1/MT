@@ -60,7 +60,17 @@ SET_A_FEATURES = [
 
 # Control dummy variable names (created from fyear)
 CONTROL_DUMMY_FEATURES = [
-    'ASC606_dummy', 'ASC842_dummy', 'TCJA_dummy', 'COVID_dummy'
+    'ASC606_dummy', 'ASC842_dummy', 'TCJA_dummy', 'COVID_dummy', 'ASC606_TCJA_combined_dummy'
+]
+
+# Clean dummy variables for OLS (resolves ASC606/TCJA multicollinearity)
+OLS_DUMMY_FEATURES = [
+    'ASC606_TCJA_combined_dummy', 'ASC842_dummy', 'COVID_dummy'
+]
+
+# Final dummy variables for OLS thesis table (only variables with variance in training set)
+OLS_DUMMY_FEATURES_FINAL = [
+    'ASC606_TCJA_combined_dummy'
 ]
 
 # Set B (Additional ML) predictor feature names

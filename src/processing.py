@@ -276,6 +276,8 @@ def _construct_dummy_variables(df: pd.DataFrame) -> pd.DataFrame:
         df_copy['ASC842_dummy'] = (df_copy['fyear'] >= 2019).astype(int)
         df_copy['TCJA_dummy'] = (df_copy['fyear'] >= 2018).astype(int)
         df_copy['COVID_dummy'] = ((df_copy['fyear'] == 2020) | (df_copy['fyear'] == 2021)).astype(int)
+        # Combined dummy to resolve ASC606/TCJA multicollinearity (both fyear >= 2018)
+        df_copy['ASC606_TCJA_combined_dummy'] = (df_copy['fyear'] >= 2018).astype(int)
         print("  Dummy variables constructed.")
     else:
         print("  Warning: 'fyear' missing, dummy variables set to NaN.")

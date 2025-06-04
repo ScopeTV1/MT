@@ -1,0 +1,72 @@
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{threeparttable}
+\usepackage{dcolumn}
+
+% Define column types for decimal alignment
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+
+\begin{document}
+
+\begin{table}[htbp]
+\centering
+\caption{Descriptive Statistics}
+\label{tab:desc_stats}
+\begin{threeparttable}
+\begin{tabular}{l d{6.0} d{4.4} d{4.4} d{4.4} d{4.4} d{4.4} d{4.4} d{4.4}}
+\toprule
+Variable & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Median} & \multicolumn{1}{c}{Std.Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{25\%} & \multicolumn{1}{c}{75\%} & \multicolumn{1}{c}{Max} \\
+\midrule
+\addlinespace[0.5em]
+\multicolumn{9}{l}{\textit{A. Dependent Variable}} \\
+\addlinespace[0.2em]
+OCF\_Scaled\_t\_plus\_1 & 123,449 & -0.185 & 0.051 & 1.046 & -14.154 & -0.090 & 0.124 & 0.622 \\
+\addlinespace[0.5em]
+\multicolumn{9}{l}{\textit{B. Set A: Core Financial Predictors}} \\
+\addlinespace[0.2em]
+OCF\_Scaled\_Lag\_t & 123,449 & -0.222 & 0.051 & 1.244 & -16.556 & -0.096 & 0.125 & 0.745 \\
+NI\_Scaled\_t & 123,449 & -0.532 & 0.001 & 2.505 & -37.503 & -0.211 & 0.060 & 0.562 \\
+Accruals\_Scaled\_t & 123,449 & -0.331 & -0.063 & 1.604 & -30.478 & -0.140 & -0.017 & 0.969 \\
+Delta\_Rec\_Scaled\_t & 123,449 & 0.002 & 0.002 & 0.078 & -0.726 & -0.009 & 0.022 & 0.303 \\
+Delta\_Inv\_Scaled\_t & 123,449 & 0.003 & 0.000 & 0.043 & -0.359 & -0.001 & 0.009 & 0.204 \\
+Delta\_AP\_Scaled\_t & 123,449 & 0.010 & 0.003 & 0.143 & -1.100 & -0.008 & 0.017 & 2.188 \\
+DP\_Scaled\_t & 123,449 & 0.046 & 0.034 & 0.051 & 0.000 & 0.017 & 0.058 & 0.729 \\
+ln\_at\_t & 123,449 & 5.207 & 5.364 & 2.930 & -3.912 & 3.355 & 7.273 & 11.749 \\
+\addlinespace[0.5em]
+\multicolumn{9}{l}{\textit{C. Set A: Control Variables (Dummies)}} \\
+\addlinespace[0.2em]
+ASC606\_TCJA\_combined\_dummy & 123,449 & 0.211 & 0.000 & 0.408 & 0.000 & 0.000 & 0.000 & 1.000 \\
+ASC842\_dummy & 123,449 & 0.169 & 0.000 & 0.375 & 0.000 & 0.000 & 0.000 & 1.000 \\
+COVID\_dummy & 123,449 & 0.085 & 0.000 & 0.279 & 0.000 & 0.000 & 0.000 & 1.000 \\
+\addlinespace[0.5em]
+\multicolumn{9}{l}{\textit{D. Set B: Additional Predictor Variables}} \\
+\addlinespace[0.2em]
+XSGA\_Scaled\_t & 111,502 & 1.714 & 0.232 & 41.747 & 0.006 & 0.098 & 0.477 & 5325.500 \\
+XRD\_Scaled\_t & 123,449 & 0.083 & 0.000 & 0.214 & 0.000 & 0.000 & 0.066 & 2.166 \\
+CAPX\_Scaled\_t & 123,337 & 0.055 & 0.028 & 0.092 & 0.000 & 0.010 & 0.063 & 15.000 \\
+CurrentRatio\_t & 121,784 & 3.989 & 1.845 & 42.070 & 0.006 & 1.084 & 3.357 & 13545.000 \\
+DebtToAssets\_t & 123,449 & 1.238 & 0.493 & 4.819 & 0.011 & 0.274 & 0.717 & 72.700 \\
+OCFtoSales\_t & 109,303 & -1.623 & 0.067 & 13.404 & -147.270 & -0.039 & 0.157 & 1660.113 \\
+InvTurnover\_t & 82,956 & 37.981 & 5.479 & 502.211 & 0.167 & 2.978 & 13.643 & 66511.000 \\
+RecTurnover\_t & 116,111 & 19.657 & 6.200 & 232.774 & 0.000 & 3.972 & 9.999 & 47246.000 \\
+GPM\_t & 109,303 & -0.793 & 0.354 & 9.378 & -105.203 & 0.196 & 0.553 & 1281.677 \\
+Delta\_Sales\_Scaled\_t & 123,449 & 0.043 & 0.027 & 0.368 & -4.750 & -0.018 & 0.131 & 2.651 \\
+NI\_Scaled\_Lag\_t & 123,449 & -0.509 & 0.002 & 2.365 & -37.286 & -0.212 & 0.061 & 2.692 \\
+CapitalIntensity\_t & 123,449 & 0.277 & 0.172 & 0.273 & 0.000 & 0.058 & 0.435 & 0.987 \\
+MkBk\_t & 106,911 & 17.105 & 1.817 & 1449.359 & -78.008 & 0.844 & 3.622 & 315075.155 \\
+FirmAge\_t & 59,113 & 11.350 & 10.000 & 9.358 & 0.000 & 4.000 & 16.000 & 76.000 \\
+
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\small
+\item \textit{Notes:} This table presents descriptive statistics for the final analytical sample of 123,449 firm-year observations covering predictor fiscal years 2001.0-2022.0. All continuous variables were winsorized at the 1st and 99th percentiles annually. For dummy variables, Mean represents the proportion of observations where the dummy equals 1. Std.Dev. = Standard Deviation.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\end{document}
