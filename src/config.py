@@ -1,6 +1,12 @@
 """
-Configuration file for Master Thesis project.
-Contains all constants, column lists, and configuration parameters.
+Configuration file for Master Thesis project: Predicting Operating Cash Flow.
+Contains all constants, column lists, and configuration parameters for data processing
+and model analysis.
+
+Author: Luis Mauel
+Institution: Maastricht University
+Program: International Business
+Date: 2025
 """
 
 # =============================================================================

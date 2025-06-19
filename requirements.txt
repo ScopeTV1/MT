@@ -1,0 +1,29 @@
+# Core data analysis packages
+pandas>=1.5.0
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Machine learning packages  
+scikit-learn>=1.2.0
+xgboost>=1.7.0
+
+# Statistical analysis
+statsmodels>=0.14.0
+
+# Visualization
+matplotlib>=3.6.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# Jupyter and notebook execution
+jupyter>=1.0.0
+nbconvert>=7.0.0
+ipykernel>=6.21.0
+
+# Progress bars and system monitoring
+tqdm>=4.64.0
+psutil>=5.9.0
+
+# File and data handling
+openpyxl>=3.1.0
+xlsxwriter>=3.0.0

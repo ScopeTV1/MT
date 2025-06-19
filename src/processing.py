@@ -1,12 +1,17 @@
 """
-Data processing module for Master Thesis project.
-Handles data loading, preparation, feature construction, and winsorization.
+Data processing module for Master Thesis project: Predicting Operating Cash Flow.
+Handles data loading, preparation, feature construction, and winsorization for
+machine learning and traditional forecasting models.
+
+Author: Luis Mauel
+Institution: Maastricht University
+Program: International Business
+Date: 2025
 """
 
 import pandas as pd
 import numpy as np
 from typing import List, Optional, Tuple, Union
-from scipy.stats.mstats import winsorize
 import src.config as config
 
 # =============================================================================
@@ -239,23 +244,23 @@ def _construct_set_a_predictors(df: pd.DataFrame) -> pd.DataFrame:
     if all(col in df_copy.columns for col in ['oancf', 'at_lag1']):
         df_copy['OCF_Scaled_Lag_t'] = _safe_divide(df_copy['oancf'], df_copy['at_lag1'])
     
-    if all(col in df_copy.columns for col in ['ni', 'at']):
-        df_copy['NI_Scaled_t'] = _safe_divide(df_copy['ni'], df_copy['at'])
+    if all(col in df_copy.columns for col in ['ni', 'at_lag1']):
+        df_copy['NI_Scaled_t'] = _safe_divide(df_copy['ni'], df_copy['at_lag1'])
     
-    if all(col in df_copy.columns for col in ['ni', 'oancf', 'at']):
-        df_copy['Accruals_Scaled_t'] = _safe_divide(df_copy['ni'] - df_copy['oancf'], df_copy['at'])
+    if all(col in df_copy.columns for col in ['ni', 'oancf', 'at_lag1']):
+        df_copy['Accruals_Scaled_t'] = _safe_divide(df_copy['ni'] - df_copy['oancf'], df_copy['at_lag1'])
     
-    if all(col in df_copy.columns for col in ['rect', 'rect_lag1', 'at']):
-        df_copy['Delta_Rec_Scaled_t'] = _safe_divide(df_copy['rect'] - df_copy['rect_lag1'], df_copy['at'])
+    if all(col in df_copy.columns for col in ['rect', 'rect_lag1', 'at_lag1']):
+        df_copy['Delta_Rec_Scaled_t'] = _safe_divide(df_copy['rect'] - df_copy['rect_lag1'], df_copy['at_lag1'])
     
-    if all(col in df_copy.columns for col in ['invt', 'invt_lag1', 'at']):
-        df_copy['Delta_Inv_Scaled_t'] = _safe_divide(df_copy['invt'] - df_copy['invt_lag1'], df_copy['at'])
+    if all(col in df_copy.columns for col in ['invt', 'invt_lag1', 'at_lag1']):
+        df_copy['Delta_Inv_Scaled_t'] = _safe_divide(df_copy['invt'] - df_copy['invt_lag1'], df_copy['at_lag1'])
     
-    if all(col in df_copy.columns for col in ['ap', 'ap_lag1', 'at']):
-        df_copy['Delta_AP_Scaled_t'] = _safe_divide(df_copy['ap'] - df_copy['ap_lag1'], df_copy['at'])
+    if all(col in df_copy.columns for col in ['ap', 'ap_lag1', 'at_lag1']):
+        df_copy['Delta_AP_Scaled_t'] = _safe_divide(df_copy['ap'] - df_copy['ap_lag1'], df_copy['at_lag1'])
     
-    if all(col in df_copy.columns for col in ['dp', 'at']):
-        df_copy['DP_Scaled_t'] = _safe_divide(df_copy['dp'], df_copy['at'])
+    if all(col in df_copy.columns for col in ['dp', 'at_lag1']):
+        df_copy['DP_Scaled_t'] = _safe_divide(df_copy['dp'], df_copy['at_lag1'])
     
     if 'at' in df_copy.columns:
         # Only calculate log for positive values
@@ -292,9 +297,9 @@ def _construct_set_b_predictors(df: pd.DataFrame) -> pd.DataFrame:
 
     # Feature construction mappings for cleaner code
     feature_mappings = [
-        ('XSGA_Scaled_t', 'xsga', 'at'),
-        ('XRD_Scaled_t', 'xrd', 'at'),
-        ('CAPX_Scaled_t', 'capx', 'at'),
+        ('XSGA_Scaled_t', 'xsga', 'at_lag1'),
+        ('XRD_Scaled_t', 'xrd', 'at_lag1'),
+        ('CAPX_Scaled_t', 'capx', 'at_lag1'),
         ('CurrentRatio_t', 'act', 'lct'),
         ('DebtToAssets_t', 'lt', 'at'),
         ('OCFtoSales_t', 'oancf', 'sale'),
@@ -319,8 +324,8 @@ def _construct_set_b_predictors(df: pd.DataFrame) -> pd.DataFrame:
             df_copy['GPM_t'] = _safe_divide(df_copy['sale'] - df_copy['cogs'], df_copy['sale'])
     
     # Delta Sales Scaled
-    if all(col in df_copy.columns for col in ['sale', 'sale_lag1', 'at']):
-        df_copy['Delta_Sales_Scaled_t'] = _safe_divide(df_copy['sale'] - df_copy['sale_lag1'], df_copy['at'])
+    if all(col in df_copy.columns for col in ['sale', 'sale_lag1', 'at_lag1']):
+        df_copy['Delta_Sales_Scaled_t'] = _safe_divide(df_copy['sale'] - df_copy['sale_lag1'], df_copy['at_lag1'])
     
     # Firm Age
     if all(col in df_copy.columns for col in ['fyear', 'ipo_year']):
@@ -427,6 +432,10 @@ def annual_winsorize_variables(df_input: pd.DataFrame,
         DataFrame with specified columns winsorized annually
     """
     df = df_input.copy()
+    
+    # Lazy import to avoid loading scipy unless needed
+    from scipy.stats.mstats import winsorize
+    
     print(f"\nStarting annual winsorization for {len(columns_to_winsorize)} columns...")
     
     if year_column not in df.columns:

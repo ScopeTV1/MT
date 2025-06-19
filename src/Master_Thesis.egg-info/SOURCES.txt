@@ -1,6 +1,0 @@
-README.md
-pyproject.toml
-src/Master_Thesis.egg-info/PKG-INFO
-src/Master_Thesis.egg-info/SOURCES.txt
-src/Master_Thesis.egg-info/dependency_links.txt
-src/Master_Thesis.egg-info/top_level.txt
