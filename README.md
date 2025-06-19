@@ -75,9 +75,6 @@ source thesis_env/bin/activate
 ```bash
 # Install all required packages
 pip install -r requirements.txt
-
-# For Apple Silicon users (optional optimization):
-python install_apple_silicon_packages.py
 ```
 
 ## Repository Structure
@@ -100,57 +97,37 @@ Master_Thesis/
 ├── tables/                       # Generated tables and outputs
 ├── requirements.txt              # Python dependencies
 ├── pyproject.toml               # Project configuration
-├── NOTEBOOK_EXECUTION_GUIDE.md  # Detailed execution guide
 └── README.md                    # This file
 ```
 
 ## Step-by-Step Reproduction Instructions
 
-### Method 1: Automated Execution (Recommended)
-```bash
-# Execute all notebooks automatically
-python execute_notebooks.py
-```
-
-### Method 2: Manual Execution
-Execute notebooks in the following order:
+Execute notebooks in the following order to reproduce all thesis results:
 
 #### Step 1: Descriptive Statistics
-```bash
-jupyter notebook notebooks/exploration_main_descriptive_statistics.ipynb
-```
+Open and run: `notebooks/exploration_main_descriptive_statistics.ipynb`
 **Generates:** Descriptive statistics tables for thesis Chapter 4
 
 #### Step 2: OLS Regression Analysis
-```bash
-jupyter notebook notebooks/exploration_02_OLS_main.ipynb
-```
+Open and run: `notebooks/exploration_02_OLS_main.ipynb`
 **Generates:** 
 - OLS regression results table (`tables/ols_regression_table.tex`)
 - Traditional forecasting performance metrics
 
 #### Step 3: Random Forest Model
-```bash
-jupyter notebook notebooks/exploration_03_RandomForest_main.ipynb
-```
+Open and run: `notebooks/exploration_03_RandomForest_main.ipynb`
 **Generates:** Random Forest model performance metrics and feature importance plots
 
 #### Step 4: Random Forest Model - Set B
-```bash
-jupyter notebook notebooks/exploration_03_RandomForest_SetB_main.ipynb
-```
+Open and run: `notebooks/exploration_03_RandomForest_SetB_main.ipynb`
 **Generates:** Alternative Random Forest model results for robustness testing
 
 #### Step 5: XGBoost Model
-```bash
-jupyter notebook notebooks/exploration_04_XGB_main.ipynb
-```
+Open and run: `notebooks/exploration_04_XGB_main.ipynb`
 **Generates:** XGBoost model performance metrics and feature importance analysis
 
 #### Step 6: XGBoost Model - Set B
-```bash
-jupyter notebook notebooks/exploration_04_XGB_SetB_main.ipynb
-```
+Open and run: `notebooks/exploration_04_XGB_SetB_main.ipynb`
 **Generates:** Alternative XGBoost model results for robustness testing
 
 ## Generated Outputs
@@ -188,12 +165,12 @@ The analysis implements and compares:
 ### Common Issues
 1. **Missing data error**: Ensure your dataset is placed in `data/raw/` directory
 2. **Package conflicts**: Use a fresh virtual environment
-3. **Apple Silicon optimization**: Run `install_apple_silicon_packages.py` for best performance
+3. **Memory issues**: Close other applications when running large models
 
 ### Performance Optimization
-- For Apple Silicon users: The repository includes optimizations for M1/M2 chips
 - For large datasets: Consider increasing memory limits in notebook configurations
-- For faster execution: Use the automated execution script with parallel processing
+- For faster execution: Run notebooks individually and clear outputs between runs
+- Monitor system resources during model training
 
 ## Academic Citation
 

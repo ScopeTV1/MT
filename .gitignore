@@ -52,19 +52,9 @@ Thumbs.db
 # Archive notebooks
 notebooks/archive/
 
-# Execution scripts and logs
-execute_notebooks.py
-install_apple_silicon_packages.py
-main_execution.log
-logs/
-*.log
-
 # Generated tables and output files
 tables/
 texput.log
-
-# Scripts (except config and processing)
-scripts/
 
 # Backup files
 *.backup
